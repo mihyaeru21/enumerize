@@ -38,8 +38,8 @@ module Enumerize
       coder.represent_object(self.class.superclass, @value)
     end
 
-    def as_json(*)
-      to_s
+    def as_json(...)
+      @value.as_json(...)
     end
 
     private

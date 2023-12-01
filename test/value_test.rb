@@ -164,9 +164,22 @@ class ValueTest < Minitest::Spec
   end
 
   describe '#as_json' do
-    it 'returns String object, not Value object' do
-      expect(val.as_json.class).must_equal String
-      expect(val.as_json).must_equal 'test_value'
+    it 'returns valid JSON object, not Value object' do
+      int_val = Enumerize::Value.new(attr, 'test_value', 1)
+      expect(int_val.as_json.class).must_equal Integer
+      expect(int_val.as_json).must_equal 1
+
+      string_val = Enumerize::Value.new(attr, 'test_value', 'value')
+      expect(string_val.as_json.class).must_equal String
+      expect(string_val.as_json).must_equal 'value'
+
+      true_val = Enumerize::Value.new(attr, 'test_value', true)
+      expect(true_val.as_json.class).must_equal TrueClass
+      expect(true_val.as_json).must_equal true
+
+      false_val = Enumerize::Value.new(attr, 'test_value', false)
+      expect(false_val.as_json.class).must_equal FalseClass
+      expect(false_val.as_json).must_equal false
     end
   end
 end
